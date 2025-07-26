@@ -1,0 +1,341 @@
+/* Search Container */
+.search-container {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 34px;
+  overflow: hidden;
+  position: relative;
+}
+
+.search-bar.active {
+  background: rgba(0, 0, 0, 0.85);
+  border-color: rgba(255, 255, 255, 0.8);
+  min-width: 280px;
+  backdrop-filter: blur(10px);
+}
+
+/* Search Icon */
+.search-icon {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  padding: 7px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.search-icon:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+/* Search Input */
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 14px;
+  padding: 7px 0;
+  flex: 1;
+  min-width: 0;
+  font-family: inherit;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Clear Search Button */
+.clear-search {
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 7px 10px;
+  font-size: 18px;
+  line-height: 1;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.clear-search:hover {
+  color: white;
+}
+
+/* Search Results Dropdown */
+.search-results {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(15px);
+  border-radius: 8px;
+  max-height: 70vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: searchDropdown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes searchDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Results Header */
+.results-header {
+  padding: 15px 20px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.results-header h4 {
+  color: white;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Loading State */
+.search-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #e50914;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.search-loading p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* No Results */
+.no-results {
+  padding: 40px 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.no-results p {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  color: white;
+}
+
+.no-results span {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Results List */
+.results-list {
+  padding: 10px 0;
+}
+
+/* Search Result Item */
+.search-result-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-result-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(2px);
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+/* Result Poster */
+.result-poster {
+  width: 60px;
+  height: 90px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-right: 15px;
+  background: #333;
+}
+
+.result-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-poster {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #333, #555);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 24px;
+}
+
+/* Result Info */
+.result-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.result-info h5 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: white;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.result-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 8px;
+}
+
+.result-meta .year {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+}
+
+.result-meta .rating {
+  color: #f39c12;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.overview {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Results Footer */
+.results-footer {
+  padding: 10px 20px 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.results-footer p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+}
+
+/* Custom Scrollbar */
+.search-results::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-results::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.search-results::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-bar.active {
+    min-width: 220px;
+  }
+
+  .search-results {
+    min-width: 300px;
+    max-height: 60vh;
+  }
+
+  .result-poster {
+    width: 50px;
+    height: 75px;
+    margin-right: 12px;
+  }
+
+  .search-result-item {
+    padding: 10px 15px;
+  }
+
+  .result-info h5 {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar.active {
+    min-width: 180px;
+  }
+
+  .search-results {
+    min-width: 280px;
+    left: -50px;
+  }
+
+  .results-header,
+  .search-result-item,
+  .results-footer {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
