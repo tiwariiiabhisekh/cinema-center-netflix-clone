@@ -1,7 +1,29 @@
 {
-  "name": "netflix-clone",
+  "name": "cinema-center-netflix-clone",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A modern Netflix clone built with React and Vite, featuring movie streaming interface with Firebase authentication",
+  "author": "Abhishek Tiwari <your-email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiwariiiabhisekh/cinema-center-netflix-clone.git"
+  },
+  "homepage": "https://github.com/tiwariiiabhisekh/cinema-center-netflix-clone#readme",
+  "bugs": {
+    "url": "https://github.com/tiwariiiabhisekh/cinema-center-netflix-clone/issues"
+  },
+  "keywords": [
+    "react",
+    "netflix-clone",
+    "vite",
+    "firebase",
+    "streaming",
+    "movies",
+    "entertainment",
+    "responsive",
+    "javascript"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
