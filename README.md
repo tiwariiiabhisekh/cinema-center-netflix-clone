@@ -70,7 +70,28 @@ npm install
 yarn install
 ```
 
-### 3. Firebase Setup
+### 3. Environment Variables Setup
+
+1. Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+2. Get your TMDB API credentials:
+
+   - Go to [TMDB](https://www.themoviedb.org/settings/api)
+   - Create an account and get your API key
+   - Get your access token for API v4
+
+3. Update `.env` with your credentials:
+
+```bash
+VITE_TMDB_API_KEY=your_tmdb_api_key_here
+VITE_TMDB_ACCESS_TOKEN=your_tmdb_access_token_here
+```
+
+### 4. Firebase Setup
 
 1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
 2. Enable Authentication and choose sign-in methods
@@ -86,7 +107,7 @@ const firebaseConfig = {
 };
 ```
 
-### 4. Run the development server
+### 5. Run the development server
 
 ```bash
 npm run dev
