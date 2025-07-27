@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Player.css";
 import back_arrow_icon from "../../assets/back_arrow_icon.png";
 import { useNavigate, useParams } from "react-router-dom";
@@ -59,25 +59,49 @@ const Player = () => {
         allowFullScreen
       ></iframe>
       <div className="servers">
-        <button 
-        
-        style={{border: server === "https://vidsrc.cc/v2/embed/movie/" ? "3px solid blue":null}}
-        
-        onClick={()=>setServer("https://vidsrc.cc/v2/embed/movie/")}>Server 1
-
-
+        <button
+          style={{
+            border:
+              server === "https://vidsrc.cc/v2/embed/movie/"
+                ? "3px solid blue"
+                : null,
+          }}
+          onClick={() => setServer("https://vidsrc.cc/v2/embed/movie/")}
+        >
+          Server 1
         </button>
 
-
-        <button 
-        style={{border: server === "https://player.autoembed.cc/embed/movie/" ? "3px solid blue":null}}
-        onClick={()=>setServer("https://player.autoembed.cc/embed/movie/")}>Server 2</button>
-        <button 
-        style={{border: server === "https://vidlink.pro/movie/" ? "3px solid blue":null}}
-        onClick={()=>setServer("https://vidlink.pro/movie/")} >Server 3</button>
-        <button 
-        style={{border: server === "https://embed.su/embed/movie/" ? "3px solid blue":null}}
-        onClick={()=>setServer("https://embed.su/embed/movie/")} >Server 4</button>
+        <button
+          style={{
+            border:
+              server === "https://player.autoembed.cc/embed/movie/"
+                ? "3px solid blue"
+                : null,
+          }}
+          onClick={() => setServer("https://player.autoembed.cc/embed/movie/")}
+        >
+          Server 2
+        </button>
+        <button
+          style={{
+            border:
+              server === "https://vidlink.pro/movie/" ? "3px solid blue" : null,
+          }}
+          onClick={() => setServer("https://vidlink.pro/movie/")}
+        >
+          Server 3
+        </button>
+        <button
+          style={{
+            border:
+              server === "https://embed.su/embed/movie/"
+                ? "3px solid blue"
+                : null,
+          }}
+          onClick={() => setServer("https://embed.su/embed/movie/")}
+        >
+          Server 4
+        </button>
       </div>
     </div>
   );

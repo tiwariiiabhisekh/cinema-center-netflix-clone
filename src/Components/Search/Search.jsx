@@ -2,36 +2,48 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./Search.css";
 import search_icon from "../../assets/search_icon.svg";
 import { Link } from "react-router-dom";
+import { tmdbOptions, TMDB_ENDPOINTS, getImageUrl } from "../../api/tmdbConfig";
 
 const Search = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const searchRef = useRef();
   const inputRef = useRef();
 
   const searchMovies = useCallback(async () => {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YThkZDNmZjBhNjMzNWI5ZjM1ODU1YjJmNjA0NTNmNiIsIm5iZiI6MTc1MzQ0MDY5MC44NjQsInN1YiI6IjY4ODM2MWIyZDlkYTE4ZTUxNjhhNjQ0YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JHZ70CBlnfcYvsDgxCHWQpbTgj6z7Tl8s2Fg1DvqZD0",
-      },
-    };
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
 
     try {
+      console.log("Searching for:", searchQuery); // Debug log
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
-          searchQuery
-        )}&language=en-US&page=1&include_adult=false`,
-        options
+        TMDB_ENDPOINTS.SEARCH_MOVIES(searchQuery),
+        tmdbOptions
       );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
-      setSearchResults(data.results?.slice(0, 8) || []);
+      console.log("Search response:", data); // Debug log
+
+      if (data.results) {
+        setSearchResults(data.results.slice(0, 8));
+      } else {
+        setSearchResults([]);
+      }
     } catch (error) {
       console.error("Search error:", error);
+      setError(`Failed to search movies: ${error.message}`);
       setSearchResults([]);
     } finally {
       setLoading(false);
@@ -42,6 +54,7 @@ const Search = () => {
   useEffect(() => {
     if (searchQuery.length > 2) {
       setLoading(true);
+      setError(null);
       const delaySearch = setTimeout(() => {
         searchMovies();
       }, 500);
@@ -50,6 +63,7 @@ const Search = () => {
     } else {
       setSearchResults([]);
       setLoading(false);
+      setError(null);
     }
   }, [searchQuery, searchMovies]);
 
@@ -75,6 +89,7 @@ const Search = () => {
       setIsSearchOpen(false);
       setSearchQuery("");
       setSearchResults([]);
+      setError(null);
     }
   };
 
@@ -82,6 +97,7 @@ const Search = () => {
     setIsSearchOpen(false);
     setSearchQuery("");
     setSearchResults([]);
+    setError(null);
   };
 
   const handleKeyDown = (e) => {
@@ -89,6 +105,7 @@ const Search = () => {
       setIsSearchOpen(false);
       setSearchQuery("");
       setSearchResults([]);
+      setError(null);
     }
   };
 
@@ -118,6 +135,7 @@ const Search = () => {
             onClick={() => {
               setSearchQuery("");
               setSearchResults([]);
+              setError(null);
               inputRef.current?.focus();
             }}
           >
@@ -133,6 +151,11 @@ const Search = () => {
             <div className="search-loading">
               <div className="loading-spinner"></div>
               <p>Searching...</p>
+            </div>
+          ) : error ? (
+            <div className="search-error">
+              <p>{error}</p>
+              <button onClick={() => searchMovies()}>Retry</button>
             </div>
           ) : searchResults.length > 0 ? (
             <>
@@ -150,7 +173,7 @@ const Search = () => {
                     <div className="result-poster">
                       {movie.poster_path ? (
                         <img
-                          src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
+                          src={getImageUrl(movie.poster_path, "w92")}
                           alt={movie.title}
                           loading="lazy"
                         />

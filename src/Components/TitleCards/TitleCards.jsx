@@ -2,37 +2,50 @@ import React, { useEffect, useRef, useState } from "react";
 import "./TitleCards.css";
 // import card_data from "../../assets/cards/Cards_data";
 import { Link } from "react-router-dom";
+import { tmdbOptions, TMDB_ENDPOINTS, getImageUrl } from "../../api/tmdbConfig";
 
 const TitleCards = ({ title, category }) => {
   const [apiData, setApiData] = useState([]);
   const cardsRef = useRef();
 
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YThkZDNmZjBhNjMzNWI5ZjM1ODU1YjJmNjA0NTNmNiIsIm5iZiI6MTc1MzQ0MDY5MC44NjQsInN1YiI6IjY4ODM2MWIyZDlkYTE4ZTUxNjhhNjQ0YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JHZ70CBlnfcYvsDgxCHWQpbTgj6z7Tl8s2Fg1DvqZD0",
-    },
-  };
-
   const handleWheel = (event) => {
     event.preventDefault();
     cardsRef.current.scrollLeft += event.deltaY;
   };
-  useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${
-        category ? category : "now_playing"
-      }?language=en-US&page=1`,
-      options
-    )
-      .then((res) => res.json())
-      .then((res) => setApiData(res.results))
-      .catch((err) => console.error(err));
 
-    cardsRef.current.addEventListener("wheel", handleWheel);
-  }, []);
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch(
+          TMDB_ENDPOINTS.GET_MOVIES(category),
+          tmdbOptions
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setApiData(data.results || []);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+        setApiData([]);
+      }
+    };
+
+    fetchMovies();
+
+    const currentCardsRef = cardsRef.current;
+    if (currentCardsRef) {
+      currentCardsRef.addEventListener("wheel", handleWheel);
+    }
+
+    return () => {
+      if (currentCardsRef) {
+        currentCardsRef.removeEventListener("wheel", handleWheel);
+      }
+    };
+  }, [category]);
 
   useEffect(() => {
     console.log(apiData);
@@ -46,8 +59,8 @@ const TitleCards = ({ title, category }) => {
           return (
             <Link to={`/player/${card.id}`} className="card" key={index}>
               <img
-                src={`https://image.tmdb.org/t/p/w500` + card.backdrop_path}
-                alt=""
+                src={getImageUrl(card.backdrop_path, "w500")}
+                alt={card.original_title}
               />
               <p>{card.original_title}</p>
             </Link>

@@ -142,6 +142,7 @@ npm run build
 ### Deploy to Netlify
 
 #### Method 1: Connect GitHub Repository (Recommended)
+
 1. **Go to [Netlify](https://netlify.com)** and sign up/login
 2. **Click "Add new site"** → "Import an existing project"
 3. **Connect your GitHub** and select `cinema-center-netflix-clone`
@@ -151,6 +152,7 @@ npm run build
 5. **Click "Deploy site"**
 
 #### Method 2: Manual Deploy
+
 ```bash
 npm run build
 # Drag and drop the 'dist' folder to Netlify deploy area
