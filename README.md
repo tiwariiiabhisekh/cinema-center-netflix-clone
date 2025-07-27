@@ -170,7 +170,11 @@ npm run build
 4. **Build settings:**
    - Build command: `npm run build`
    - Publish directory: `dist`
-5. **Click "Deploy site"**
+5. **Environment Variables (IMPORTANT):**
+   - Go to Site Settings → Environment Variables
+   - Add: `VITE_TMDB_API_KEY` = your_tmdb_api_key
+   - Add: `VITE_TMDB_ACCESS_TOKEN` = your_tmdb_access_token
+6. **Click "Deploy site"**
 
 #### Method 2: Manual Deploy
 

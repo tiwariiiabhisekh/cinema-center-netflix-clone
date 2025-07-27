@@ -18,9 +18,9 @@
 [build.environment]
   # Enable modern JavaScript features
   NODE_VERSION = "18"
-  # TMDB API credentials - these should be set in Netlify UI
-  VITE_TMDB_API_KEY = "5a8dd3ff0a6335b9f35855b2f604536f"
-  VITE_TMDB_ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YThkZDNmZjBhNjMzNWI5ZjM1ODU1YjJmNjA0NTNmNiIsIm5iZiI6MTc1MzQ0MDY5MC44NjQsInN1YiI6IjY4ODM2MWIyZDlkYTE4ZTUxNjhhNjQ0YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.JHZ70CBlnfcYvsDgxCHWQpbTgj6z7Tl8s2Fg1DvqZD0"
+  # Note: TMDB API credentials should be set in Netlify UI under Site Settings > Environment Variables
+  # VITE_TMDB_API_KEY = "your_key_here"
+  # VITE_TMDB_ACCESS_TOKEN = "your_token_here"
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
