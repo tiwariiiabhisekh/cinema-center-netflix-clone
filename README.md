@@ -141,10 +141,22 @@ npm run build
 
 ### Deploy to Netlify
 
+#### Method 1: Connect GitHub Repository (Recommended)
+1. **Go to [Netlify](https://netlify.com)** and sign up/login
+2. **Click "Add new site"** → "Import an existing project"
+3. **Connect your GitHub** and select `cinema-center-netflix-clone`
+4. **Build settings:**
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+5. **Click "Deploy site"**
+
+#### Method 2: Manual Deploy
 ```bash
 npm run build
-# Deploy the 'dist' folder to Netlify
+# Drag and drop the 'dist' folder to Netlify deploy area
 ```
+
+**Important:** The `_redirects` and `netlify.toml` files are already configured to handle React Router properly.
 
 ## 🤝 Contributing
 
